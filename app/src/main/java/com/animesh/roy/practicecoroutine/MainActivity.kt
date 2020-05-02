@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.HttpURLConnection
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
 
         Log.d("MainActivity", Thread.currentThread().name)
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.IO) {
 
             Log.d("MainActivity", "launch -> ${Thread.currentThread().name}")
             val imageUrl = URL("https://developer.android.com/images/kotlin/cards/kotlin-bootcamp.png")
