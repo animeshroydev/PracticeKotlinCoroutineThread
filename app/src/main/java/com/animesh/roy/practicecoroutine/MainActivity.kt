@@ -20,10 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        Log.d("MainActivity", Thread.currentThread().name)
         GlobalScope.launch(Dispatchers.IO) {
 
-            Log.d("MainActivity", "launch -> ${Thread.currentThread().name}")
             val imageUrl = URL("https://developer.android.com/images/kotlin/cards/kotlin-bootcamp.png")
 
             val httpConnection = imageUrl.openConnection() as HttpURLConnection
@@ -33,8 +31,7 @@ class MainActivity : AppCompatActivity() {
             val inputStream = httpConnection.inputStream
             val bitmapImage = BitmapFactory.decodeStream(inputStream)
 
-            runOnUiThread {
-                Log.d("MainActivity", "runOnUiThread -> ${Thread.currentThread().name}")
+            launch(Dispatchers.Main) {
                 imageView.setImageBitmap(bitmapImage)
             }
         }
